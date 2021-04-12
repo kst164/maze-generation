@@ -33,10 +33,10 @@ fn main() {
     };
 
     let mut m  = Maze::new(length, width);
-    m.add_path(1, 2, Direction::Right);
-    m.add_path(1, 2, Direction::Up);
-    m.add_path(1, 2, Direction::Down);
-    m.add_path(1, 2, Direction::Left);
+    m.add_wall(1, 2, &Direction::Right);
+    m.add_wall(1, 2, &Direction::Up);
+    m.add_wall(1, 2, &Direction::Down);
+    m.add_wall(1, 2, &Direction::Left);
 
     // ncurses testing, was thinking to use for navigation
     /*ncurses::initscr();

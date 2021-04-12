@@ -1,4 +1,4 @@
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq)]
 pub enum Direction {
     Up,
     Down,
@@ -14,6 +14,10 @@ impl Direction {
             Self::Left  => 0b0010,
             Self::Right => 0b0001,
         }
+    }
+
+    pub fn all() -> Vec<Self> {
+        vec![Self::Up, Self::Right, Self::Down, Self::Left]
     }
 
     pub fn get_opp(&self) -> Self{
@@ -34,12 +38,23 @@ impl Directions {
         Directions(0x0)
     }
 
-    pub fn has_dir(&self, dir: Direction) -> bool {
+    pub fn has_dir(&self, dir: &Direction) -> bool {
         self.0 & dir.as_flag() != 0
     }
 
+    // Vec of available directions
+    pub fn available(&self) -> Vec<Direction>{
+        let mut list = vec![];
+        for dir in Direction::all() {
+            if self.has_dir(&dir) {
+                list.push(dir);
+            }
+        }
+        list
+    }
+
     // False if wasn't already there
-    pub fn add_dir(&mut self, dir: Direction) -> bool {
+    pub fn add_dir(&mut self, dir: &Direction) -> bool {
         let flag = dir.as_flag();
         if self.0 & flag != 0 {
             false
@@ -50,7 +65,7 @@ impl Directions {
     }
 
     // False if already wasn't there
-    pub fn remove_dir(&mut self, dir: Direction) -> bool {
+    pub fn remove_dir(&mut self, dir: &Direction) -> bool {
         let flag = dir.as_flag();
         if self.0 & flag == 0 {
             false
