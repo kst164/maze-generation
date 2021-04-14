@@ -184,46 +184,6 @@ impl Maze {
         true
     }
 
-
-    pub fn to_string(&self) -> String {
-        let mut out = String::new();
-        for row in 0..self.rows {
-            for col in 0..self.cols {
-                out += "+";
-                out += if self.maze[row][col].dirs.has_dir(&Direction::Up) {
-                    "   "
-                } else {
-                    "---"
-                };
-            }
-
-            out += "+\n";
-
-            for col in 0..self.cols {
-                out += if self.maze[row][col].dirs.has_dir(&Direction::Left) {
-                    " "
-                } else {
-                    "|"
-                };
-
-                out += if self.maze[row][col].get_is_path() {
-                    " * "
-                } else {
-                    "   "
-                };
-            }
-
-            out += "|\n";
-        }
-
-        for _col in 0..self.cols {
-            out += "+---";
-        }
-        out += "+";
-
-        out
-    }
-
     pub fn to_lines(&self) -> Vec<String> {
         let mut lines = vec![];
         for row in 0..self.rows {
@@ -271,6 +231,17 @@ impl Maze {
         lines.push(last_line + "+");
 
         lines
+    }
+
+    pub fn to_string(&self) -> String {
+        let strs = self.to_lines();
+        let mut out = String::new();
+        for line in self.to_lines() {
+            out += &line;
+            out += "\n";
+        }
+
+        out
     }
 }
 
