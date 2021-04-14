@@ -132,7 +132,11 @@ impl Maze {
     // Solves maze and sets Square.is_path, returns false if not solvable
     // Just goes to all possible squares
     pub fn solve(&mut self) -> bool {
-        // Points already checked
+        // key: (row, col) of Square already checked
+        // value: Where did we come from to end up on this square
+        //        eg: checked (0,0) then moved on to (1,0)
+        //            checked.insert((1,0), Some(Direction::Up))
+        //              Option because no direction at starting point
         let mut checked = HashMap::new();
 
         // Stack of points to check
@@ -142,15 +146,18 @@ impl Maze {
         let mut solvable = false;
         while let Some((row, col, came_from)) = stack.pop_front() {
 
+            // dir.available returns all directions without walls
             for dir in self.maze[row][col].dirs.available() {
                 let neighbour = self.get_neighbour(row, col, &dir).unwrap();
                 
                 // println!("{} {} {:?} ({}, {})", row, col, &dir, neighbour.get_row(), neighbour.get_col());
 
+                // If we haven't seen this square before, add it to the stack
                 if !checked.contains_key(&(neighbour.get_row(), neighbour.get_col())) {
                     stack.push_front((neighbour.get_row(), neighbour.get_col(), Some(dir.get_opp())));
                 }
 
+                // If this square is the finish point, we're done and the maze is solved
                 if (neighbour.get_row(), neighbour.get_col()) == (self.rows - 1, self.cols - 1) {
                     solvable = true;
                     break;
@@ -167,6 +174,7 @@ impl Maze {
         let mut i = self.rows - 1;
         let mut j = self.cols - 1;
 
+        // Walk backwards from the finish line because checked remembers where we came from
         while let Some(dir_option) =  checked.get(&(i, j)) {
             self.maze[i][j].set_is_path(true);
             match dir_option {
@@ -174,8 +182,10 @@ impl Maze {
                     let neighbour = self.get_neighbour(i, j, dir).unwrap();
                     i = neighbour.get_row();
                     j = neighbour.get_col();
-                }
+                },
                 None => {
+                    // We have walked all the way back to the starting point
+                    // assert_eq!((i, j), (0, 0));
                     break;
                 }
             }
@@ -184,11 +194,32 @@ impl Maze {
         true
     }
 
+    /*
+    Converts maze to a string (with path if is_path is set), returns Vec of the lines
+    Example with path:
+    +---+---+---+---+---+---+---+---+---+---+
+    | * |   |   |   |   |   |   |   |   |   |
+    +   +---+---+---+---+---+---+---+---+---+
+    | *                                     |
+    +   +---+---+---+---+---+   +---+---+---+
+    | * |   |   |   |   |   |   |   |   |   |
+    +   +---+---+---+---+---+   +---+---+---+
+    | *   *   *   *   *   *   *             |
+    +   +---+---+---+---+---+   +---+---+---+
+    |   |   |   |   |   |   | * |   |   |   |
+    +   +---+---+---+---+---+   +---+---+---+
+    |   |   |   |   |   |   | *   *   *   * |
+    +---+---+---+---+---+---+---+---+---+---+
+    */
     pub fn to_lines(&self) -> Vec<String> {
-        let mut lines = vec![];
+        let mut lines = Vec::with_capacity(2 * self.rows + 1);
         for row in 0..self.rows {
-            let mut border_up = String::new();
-            let mut content_line = String::new();
+            
+            // The +---+   +---+ line
+            let mut border_up = String::with_capacity(4 * self.cols + 1);
+
+            // The |   |       | line
+            let mut content_line = String::with_capacity(4 * self.cols + 1);
             for col in 0..self.cols {
                 let square = &self.maze[row][col];
 
@@ -233,9 +264,9 @@ impl Maze {
         lines
     }
 
+    // basically self.to_lines().join('\n')
     pub fn to_string(&self) -> String {
-        let strs = self.to_lines();
-        let mut out = String::new();
+        let mut out = String::with_capacity((4 * self.cols + 2) * (2 * self.rows + 1));
         for line in self.to_lines() {
             out += &line;
             out += "\n";
