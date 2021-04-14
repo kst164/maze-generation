@@ -15,35 +15,52 @@ fn main() {
         return;
     }
 
-    let length = match args[1].parse() {
-        Ok(n) => n,
-        Err(_) => {
-            println!("usage: cargo r[un] columns rows");
-            println!("columns is not a number");
-            return;
-        }
+    let rows = if let Ok(n) = args[1].parse() {
+        n
+    } else {
+        println!("usage: cargo r[un] rows columns");
+        println!("columns is not a number");
+        return;
     };
-    let width = match args[2].parse() {
-        Ok(n) => n,
-        Err(_) => {
-            println!("usage: cargo r[un] columns rows");
-            println!("rows is not a number");
-            return;
-        }
+    let cols = if let Ok(n) = args[2].parse() {
+        n
+    } else {
+        println!("usage: cargo r[un] rows columns");
+        println!("rows is not a number");
+        return;
     };
 
-    let mut m  = Maze::new(length, width);
-    m.add_wall(1, 2, &Direction::Right);
-    m.add_wall(1, 2, &Direction::Up);
-    m.add_wall(1, 2, &Direction::Down);
-    m.add_wall(1, 2, &Direction::Left);
+    let mut m  = Maze::new(rows, cols);
+    // m.remove_wall(1, 2, &Direction::Right);
+    // m.remove_wall(1, 2, &Direction::Up);
+    // m.remove_wall(1, 2, &Direction::Down);
+    // m.remove_wall(1, 2, &Direction::Left);
 
-    // ncurses testing, was thinking to use for navigation
-    /*ncurses::initscr();
-    ncurses::addstr(&m.to_string());
-    ncurses::refresh();
-    ncurses::getch();
-    ncurses::endwin();*/
+    let i = 4;
+    let j = 6;
 
+    for p in 0..rows {
+        m.remove_wall(p, 0, &Direction::Down);
+        if p < i {
+            m.remove_wall(p, 0, &Direction::Down);
+        } else {
+            m.remove_wall(p, j, &Direction::Down);
+        }
+    }
+
+    for q in 0..cols {
+        m.remove_wall(i, q, &Direction::Right);
+        m.remove_wall(6, q, &Direction::Right);
+        if q < j {
+            m.remove_wall(i, q, &Direction::Right);
+        } else {
+            m.remove_wall(rows - 1, q, &Direction::Right);
+        }
+    }
+
+    // m.add_wall(6, 6, &Direction::Down);
+
+    println!("{}", m);
+    println!("{}", m.solve());
     println!("{}", m);
 }

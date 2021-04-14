@@ -1,4 +1,4 @@
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Direction {
     Up,
     Down,
@@ -7,7 +7,7 @@ pub enum Direction {
 }
 
 impl Direction {
-    pub fn as_flag(&self) -> u8 {
+    fn as_flag(&self) -> u8 {
         match self {
             Self::Up    => 0b1000,
             Self::Down  => 0b0100,
@@ -30,7 +30,7 @@ impl Direction {
     }
 }
 
-#[derive(Debug)]
+#[derive(PartialEq, Eq, Hash)]
 pub struct Directions(u8);
 
 impl Directions {
