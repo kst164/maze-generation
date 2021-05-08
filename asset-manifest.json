@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/maze-www/static/css/main.02d6bab8.chunk.css",
-    "main.js": "/maze-www/static/js/main.bb5b47d3.chunk.js",
-    "main.js.map": "/maze-www/static/js/main.bb5b47d3.chunk.js.map",
-    "runtime-main.js": "/maze-www/static/js/runtime-main.de6b610c.js",
-    "runtime-main.js.map": "/maze-www/static/js/runtime-main.de6b610c.js.map",
-    "static/js/2.1247d946.chunk.js": "/maze-www/static/js/2.1247d946.chunk.js",
-    "static/js/2.1247d946.chunk.js.map": "/maze-www/static/js/2.1247d946.chunk.js.map",
-    "static/js/3.bf6210a0.chunk.js": "/maze-www/static/js/3.bf6210a0.chunk.js",
-    "48aa0f04e1cb9b7fd3ae.module.wasm": "/maze-www/48aa0f04e1cb9b7fd3ae.module.wasm",
-    "static/js/3.bf6210a0.chunk.js.map": "/maze-www/static/js/3.bf6210a0.chunk.js.map",
-    "index.html": "/maze-www/index.html",
-    "precache-manifest.17f692714cf488da8081e9e69e9b3240.js": "/maze-www/precache-manifest.17f692714cf488da8081e9e69e9b3240.js",
-    "service-worker.js": "/maze-www/service-worker.js",
-    "static/css/main.02d6bab8.chunk.css.map": "/maze-www/static/css/main.02d6bab8.chunk.css.map"
+    "main.css": "/maze-generation/static/css/main.02d6bab8.chunk.css",
+    "main.js": "/maze-generation/static/js/main.2545e1b1.chunk.js",
+    "main.js.map": "/maze-generation/static/js/main.2545e1b1.chunk.js.map",
+    "runtime-main.js": "/maze-generation/static/js/runtime-main.aa8cad54.js",
+    "runtime-main.js.map": "/maze-generation/static/js/runtime-main.aa8cad54.js.map",
+    "static/js/2.1247d946.chunk.js": "/maze-generation/static/js/2.1247d946.chunk.js",
+    "static/js/2.1247d946.chunk.js.map": "/maze-generation/static/js/2.1247d946.chunk.js.map",
+    "static/js/3.bf6210a0.chunk.js": "/maze-generation/static/js/3.bf6210a0.chunk.js",
+    "48aa0f04e1cb9b7fd3ae.module.wasm": "/maze-generation/48aa0f04e1cb9b7fd3ae.module.wasm",
+    "static/js/3.bf6210a0.chunk.js.map": "/maze-generation/static/js/3.bf6210a0.chunk.js.map",
+    "index.html": "/maze-generation/index.html",
+    "precache-manifest.a0e1be601d9c8bcbc3c77d9c4e782fd6.js": "/maze-generation/precache-manifest.a0e1be601d9c8bcbc3c77d9c4e782fd6.js",
+    "service-worker.js": "/maze-generation/service-worker.js",
+    "static/css/main.02d6bab8.chunk.css.map": "/maze-generation/static/css/main.02d6bab8.chunk.css.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.de6b610c.js",
+    "static/js/runtime-main.aa8cad54.js",
     "static/js/2.1247d946.chunk.js",
     "static/css/main.02d6bab8.chunk.css",
-    "static/js/main.bb5b47d3.chunk.js"
+    "static/js/main.2545e1b1.chunk.js"
   ]
 }
