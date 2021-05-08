@@ -1,6 +1,6 @@
 use super::directions::Directions;
 
-#[derive(PartialEq, Eq, Hash)]
+#[derive(Clone, PartialEq, Eq, Hash)]
 pub struct Square {
     pub(super) dirs: Directions,
     row: usize,

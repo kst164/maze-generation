@@ -1,33 +1,10 @@
-use std::env;
+use wasm_bindgen::prelude::*;
 
 mod maze;
-use maze::Maze;
-use maze::Direction;
+use maze::{Maze, Direction};
 
-fn main() {
-    
-    let args: Vec<String> = env::args().collect();
-    if args.len() != 3 {
-        println!("usage: cargo r[un] columns rows");
-        println!("Invalid number of arguments");
-        return;
-    }
-
-    let rows = if let Ok(n) = args[1].parse() {
-        n
-    } else {
-        println!("usage: cargo r[un] rows columns");
-        println!("columns is not a number");
-        return;
-    };
-    let cols = if let Ok(n) = args[2].parse() {
-        n
-    } else {
-        println!("usage: cargo r[un] rows columns");
-        println!("rows is not a number");
-        return;
-    };
-
+#[wasm_bindgen]
+pub fn test_maze(rows: usize, cols: usize) -> Maze {
     let mut m  = Maze::new(rows, cols);
     // m.remove_wall(1, 2, Direction::Right);
     // m.remove_wall(1, 2, Direction::Up);
@@ -56,7 +33,10 @@ fn main() {
         }
     }
 
-    println!("{}", m);
-    m.toggle_wall(6, 6, Direction::Down);
-    println!("{}", m);
+    m
+}
+
+#[wasm_bindgen]
+pub fn get_maze(rows: usize, cols: usize) -> Maze {
+    Maze::new(rows, cols)
 }
