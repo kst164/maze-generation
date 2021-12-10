@@ -1,11 +1,11 @@
 use wasm_bindgen::prelude::*;
 
 mod maze;
-use maze::{Maze, Direction};
+pub use maze::{Direction, Maze, RandomWalls};
 
 #[wasm_bindgen]
 pub fn test_maze(rows: usize, cols: usize) -> Maze {
-    let mut m  = Maze::new(rows, cols);
+    let mut m = Maze::new(rows, cols);
     // m.remove_wall(1, 2, Direction::Right);
     // m.remove_wall(1, 2, Direction::Up);
     // m.remove_wall(1, 2, Direction::Down);

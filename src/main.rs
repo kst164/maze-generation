@@ -1,11 +1,11 @@
 use std::env;
 
 mod maze;
-use maze::Maze;
 use maze::Direction;
+use maze::Maze;
+use maze::RandomWalls;
 
 fn main() {
-    
     let args: Vec<String> = env::args().collect();
     if args.len() != 3 {
         println!("usage: cargo r[un] columns rows");
@@ -28,7 +28,16 @@ fn main() {
         return;
     };
 
-    let mut m  = Maze::new(rows, cols);
+    //run(rows, cols);
+
+    let mut generator = RandomWalls::new();
+    let (m2, attempts) = generator.new_maze(rows, cols);
+    println!("{}", m2);
+    println!("{}", attempts);
+}
+
+fn run(rows: usize, cols: usize) {
+    let mut m = Maze::new(rows, cols);
     // m.remove_wall(1, 2, Direction::Right);
     // m.remove_wall(1, 2, Direction::Up);
     // m.remove_wall(1, 2, Direction::Down);

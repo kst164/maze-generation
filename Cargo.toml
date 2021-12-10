@@ -8,6 +8,7 @@ edition = "2018"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+rand = "0.8.4"
 # ncurses = "5.101.0"
 
 # wasm
